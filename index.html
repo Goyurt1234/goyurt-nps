@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOYURT NPS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOYURT LOGIN</title>
 </head>
+
 <body>
-    <h1>GOYURT NPS funcionando 🚀</h1>
+
+<h2>Login GOYURT</h2>
+
+<input id="usuario" placeholder="Usuario"><br><br>
+<input id="password" type="password" placeholder="Contraseña"><br><br>
+
+<button onclick="login()">Ingresar</button>
+
+<p id="msg"></p>
+
+<script src="js/config.js"></script>
+
+<script>
+async function login(){
+
+    const usuario = document.getElementById("usuario").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch(
+        API_URL + "?action=login&usuario=" + usuario + "&password=" + password
+    );
+
+    const data = await res.json();
+
+    if(data.success){
+
+      
+        localStorage.setItem("puntoVenta", data.puntoVenta);
+
+        window.location.href = "encuesta.html";
+
+    } else {
+        document.getElementById("msg").innerText = "Login incorrecto";
+    }
+}
+</script>
+
 </body>
 </html>
