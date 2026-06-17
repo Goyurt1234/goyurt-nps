@@ -12,6 +12,20 @@ document
 
         e.preventDefault();
 
+        const boton = document.querySelector("#surveyForm button");
+
+        // Evita múltiples clics
+        if (boton.disabled) {
+            return;
+        }
+
+        boton.disabled = true;
+        boton.innerHTML = "⏳ Enviando...";
+        boton.classList.add(
+            "opacity-60",
+            "cursor-not-allowed"
+        );
+
         const payload = {
 
             nombre:
@@ -42,10 +56,16 @@ document
 
         try {
 
-            await fetch(API_URL, {
+            const respuesta = await fetch(API_URL, {
                 method: "POST",
                 body: JSON.stringify(payload)
             });
+
+            const data = await respuesta.json();
+
+            if (!data.success) {
+                throw new Error("Error guardando encuesta");
+            }
 
             document
                 .getElementById("surveyForm")
@@ -61,6 +81,13 @@ document
 
             alert(
                 "Ocurrió un error guardando la encuesta."
+            );
+
+            boton.disabled = false;
+            boton.innerHTML = "Enviar encuesta";
+            boton.classList.remove(
+                "opacity-60",
+                "cursor-not-allowed"
             );
 
         }
@@ -81,6 +108,15 @@ function reiniciarEncuesta() {
     document
         .getElementById("success")
         .classList.add("hidden");
+
+    const boton = document.querySelector("#surveyForm button");
+
+    boton.disabled = false;
+    boton.innerHTML = "Enviar encuesta";
+    boton.classList.remove(
+        "opacity-60",
+        "cursor-not-allowed"
+    );
 
     window.scrollTo({
         top: 0,
