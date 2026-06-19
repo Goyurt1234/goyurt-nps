@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>GOYURT Analytics</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f3f6fb;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+}
+
+thead{
+    position:sticky;
+    top:0;
+    background:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="w-72 bg-cyan-700 text-white flex flex-col">
+
+        <div class="p-8 text-center border-b border-cyan-600">
+
+            <img
+            src="https://goyurt.com.co/wp-content/uploads/2025/09/logo_goyurt_cian_header.svg"
+            class="h-16 mx-auto mb-4">
+
+            <h1 class="text-2xl font-bold">
+                GOYURT
+            </h1>
+
+            <p class="text-cyan-100 mt-2">
+                Analytics Dashboard
+            </p>
+
+        </div>
+
+        <nav class="flex-1 mt-8">
+
+            <a href="#" class="block px-8 py-4 bg-cyan-600">
+                📊 Dashboard
+            </a>
+
+            <a href="#" class="block px-8 py-4 hover:bg-cyan-600 transition">
+                📝 Encuestas
+            </a>
+
+            <a href="#" class="block px-8 py-4 hover:bg-cyan-600 transition">
+                💬 Comentarios
+            </a>
+
+            <a href="#" class="block px-8 py-4 hover:bg-cyan-600 transition">
+                🏪 Puntos de venta
+            </a>
+
+        </nav>
+
+        <div class="p-6 text-center text-cyan-100 text-sm">
+
+            GOYURT NPS<br>
+            Versión 2.0
+
+        </div>
+
+    </aside>
+
+    <!-- ================= CONTENIDO ================= -->
+
+    <main class="flex-1 p-10">
+
+        <!-- HEADER -->
+
+        <div class="flex justify-between items-center mb-10">
+
+            <div>
+
+                <h1 class="text-4xl font-bold">
+                    Dashboard Ejecutivo
+                </h1>
+
+                <p class="text-gray-500 mt-2">
+                    Indicadores de satisfacción del cliente
+                </p>
+
+                <p
+                id="ultimaActualizacion"
+                class="text-sm text-gray-400 mt-2">
+
+                    Actualizando...
+
+                </p>
+
+            </div>
+
+            <button
+            onclick="cargarDashboard()"
+            class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-xl shadow">
+
+                🔄 Actualizar
+
+            </button>
+
+        </div>
+
+        <!-- KPI -->
+
+        <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-6">
+
+            <!-- TOTAL -->
+
+            <div class="card border-t-4 border-cyan-500 p-6">
+
+                <div class="flex justify-between">
+
+                    <div>
+
+                        <p class="text-gray-500">
+                            Total Encuestas
+                        </p>
+
+                        <h2
+                        id="total"
+                        class="text-5xl font-bold mt-4">
+
+                            --
+
+                        </h2>
+
+                    </div>
+
+                    <div class="text-5xl">
+                        📋
+                    </div>
+
+                </div>
+
+                <p class="text-green-600 font-semibold mt-6">
+
+                    Actualización automática
+
+                </p>
+
+            </div>
+
+            <!-- EXPERIENCIA -->
+
+            <div class="card border-t-4 border-green-500 p-6">
+
+                <div class="flex justify-between">
+
+                    <div>
+
+                        <p class="text-gray-500">
+                            Experiencia
+                        </p>
+
+                        <h2
+                        id="experiencia"
+                        class="text-5xl font-bold text-green-600 mt-4">
+
+                            --
+
+                        </h2>
+
+                    </div>
+
+                    <div class="text-5xl">
+                        😀
+                    </div>
+
+                </div>
+
+                <p class="text-gray-400 mt-6">
+                    Clientes satisfechos
+                </p>
+
+            </div>
+
+            <!-- RECOMIENDA -->
+
+            <div class="card border-t-4 border-cyan-500 p-6">
+
+                <div class="flex justify-between">
+
+                    <div>
+
+                        <p class="text-gray-500">
+                            Recomendaría
+                        </p>
+
+                        <h2
+                        id="recomendaria"
+                        class="text-5xl font-bold text-cyan-600 mt-4">
+
+                            --
+
+                        </h2>
+
+                    </div>
+
+                    <div class="text-5xl">
+                        👍
+                    </div>
+
+                </div>
+
+                <p class="text-gray-400 mt-6">
+                    Intención de recomendación
+                </p>
+
+            </div>
+
+            <!-- PRODUCTO -->
+
+            <div class="card border-t-4 border-orange-500 p-6">
+
+                <div class="flex justify-between">
+
+                    <div>
+
+                        <p class="text-gray-500">
+                            Producto
+                        </p>
+
+                        <h2
+                        id="producto"
+                        class="text-5xl font-bold text-orange-500 mt-4">
+
+                            --
+
+                        </h2>
+
+                    </div>
+
+                    <div class="text-5xl">
+                        🍦
+                    </div>
+
+                </div>
+
+                <p class="text-gray-400 mt-6">
+                    Producto de temporada
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- GRAFICAS -->
+
+        <div class="grid lg:grid-cols-2 gap-6 mt-8">
+
+            <div class="card p-6">
+
+                <div class="flex justify-between items-center mb-5">
+
+                    <h2 class="text-xl font-bold">
+                        📈 Encuestas por día
+                    </h2>
+
+                </div>
+
+                <canvas id="chart1"></canvas>
+
+            </div>
+
+<div class="card p-6">
+
+    <div class="flex justify-between items-center mb-5">
+
+        <h2 class="text-xl font-bold">
+            😀 Distribución de experiencia
+        </h2>
+
+    </div>
+
+    <div class="flex justify-center items-center h-[320px]">
+
+        <canvas
+            id="chart2"
+            class="max-w-[280px] max-h-[280px]">
+        </canvas>
+
+    </div>
+
+</div>
+
+        </div>
+
+        <!-- TABLA -->
+
+        <div class="card mt-8 p-6">
+
+            <div class="flex justify-between items-center mb-6">
+
+                <h2 class="text-2xl font-bold">
+
+                    Últimas respuestas
+
+                </h2>
+
+                <input
+                id="buscar"
+                placeholder="🔍 Buscar..."
+                class="border rounded-xl px-4 py-3 w-72">
+
+            </div>
+
+            <div class="overflow-auto max-h-[500px]">
+
+                <table class="w-full">
+
+                    <thead>
+
+                        <tr class="border-b">
+
+                            <th class="text-left py-4">Fecha</th>
+
+                            <th class="text-left">Punto</th>
+
+                            <th class="text-left">Nombre</th>
+
+                            <th class="text-left">NPS</th>
+
+                            <th class="text-left">Comentario</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tabla">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="js/config.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>
